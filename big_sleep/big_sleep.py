@@ -506,6 +506,8 @@ class Imagine(nn.Module):
                 if self.save_best and top_score.item() < self.current_best_score:
                     self.current_best_score = top_score.item()
                     save_image(image, Path(f'./{self.text_path}{self.seed_suffix}.best.png'))
+                    if self.save_latents:
+                        dill.dump(current_state_backup, file = open(f'./{self.text_path}{self.seed_suffix}.best.backup', "wb"))
 
         return out, total_loss
 
